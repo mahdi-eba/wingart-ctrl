@@ -1,0 +1,10 @@
+pystray
+pillow
+vgamepad
+winrt-runtime
+winrt-Windows.Foundation
+winrt-Windows.Foundation.Collections
+winrt-Windows.Storage.Streams
+winrt-Windows.Networking.Sockets
+winrt-Windows.Devices.Bluetooth
+winrt-Windows.Devices.Bluetooth.Rfcomm
