@@ -1,19 +1,92 @@
-# Wingart Ctrl  v1.1.0   |   وینگارت کنترل
-Phone -> Windows laptop: trackpad, keyboard, media (YouTube), Xbox gamepad. Wi-Fi + Bluetooth. EN / FA.
-Telegram: https://t.me/wingartstudio
+# Wingart Ctrl v1.1.0 | وینگارت کنترل
 
-## Builds (automatic, on GitHub)
-Every time files are pushed, GitHub builds everything. Open the repo -> **Releases**:
-* `Wingart Ctrl - latest APK`  -> WingartCtrl.apk (Android)
-* `Wingart Ctrl - Windows installer (32 + 64 bit)` -> WingartCtrl-Setup.exe
-  ONE file for every Windows PC: it detects 32/64-bit itself, installs the gamepad driver, creates the desktop icon and starts the app.
+🎮 گوشی اندرویدت رو تبدیل کن به **ماوس، کیبورد، ریموت یوتیوب و دسته بازی Xbox** برای لپ‌تاپ ویندوزی!
+Turn your Android phone into a **trackpad, keyboard, media remote and Xbox gamepad** for your Windows laptop.
 
-## Install
-1. PC: run WingartCtrl-Setup.exe (UAC -> Yes). The app opens and shows a PIN + Wi-Fi address.
-2. Phone: install WingartCtrl.apk, enter the PIN. Wi-Fi: it finds the laptop by itself.
-   Bluetooth: pair the laptop in the phone's Bluetooth settings first, then pick it in the app.
-3. Updates: install the new APK / Setup over the old ones (same signing key, nothing to uninstall).
+✅ کاملاً **آفلاین** (بدون نیاز به اینترنت) | ✅ **رایگان** | ✅ **کد قابل مشاهده**
+✅ Wi-Fi + Bluetooth | ✅ فارسی / English
 
-## Troubleshooting
-* PC log file: %APPDATA%\WingartCtrl.log  (Bluetooth errors are written there; the PC window also shows the reason).
-* Phone: the refresh button (top bar / game screen) releases every key and gamepad button on the PC.
+📢 تلگرام / Telegram: https://t.me/wingartstudio
+
+---
+
+## ⚠️ نسخه بتا / Beta Notice
+
+این برنامه در **مرحله بتا** است. ممکن است هنگام نصب، ویندوز یا اندروید هشدار نشان دهند. این طبیعی است و برنامه کاملاً امن و **آفلاین** است؛ هیچ اطلاعاتی به اینترنت ارسال نمی‌شود و کد آن در همین صفحه قابل بررسی است.
+
+This app is in **beta**. Windows or Android may show warnings during install. This is normal: the app works **fully offline**, sends no data to the internet, and the code is visible on this page.
+
+**چه کار کنیم؟ / What to do:**
+- **ویندوز:** اگر SmartScreen هشدار داد: `More info` ← `Run anyway`. در پنجره UAC هم `Yes` بزنید (برای نصب درایور دسته بازی لازم است).
+- **اندروید:** اگر گوشی هشدار «منبع ناشناس» داد، اجازهٔ نصب از مرورگر/فایل‌منیجر را فعال کنید. اگر Play Protect هشدار داد، `Install anyway` را بزنید.
+- اگر آنتی‌ویروس هشدار الکی داد (به‌خاطر درایور دسته بازی)، فایل را استثنا کنید.
+- اگر مشکلی پیش آمد، در تلگرام یا بخش Issues گزارش دهید 🙏
+
+---
+
+## 📥 دانلود / Download
+
+به بخش **[Releases](../../releases)** بروید:
+
+| فایل | کاربرد |
+|------|--------|
+| `WingartCtrl.apk` | نسخه اندروید (گوشی) |
+| `WingartCtrl-Setup.exe` | نصب‌کنندهٔ ویندوز (32 و 64 بیت، یک فایل برای همه) |
+
+---
+
+## 🚀 نحوه استفاده / How to use
+
+### ۱. روی لپ‌تاپ
+1. `WingartCtrl-Setup.exe` را اجرا کنید (در UAC بزنید Yes).
+2. برنامه باز می‌شود و یک **PIN** و **آدرس Wi-Fi** نشان می‌دهد.
+
+### ۲. روی گوشی
+1. `WingartCtrl.apk` را نصب کنید و برنامه را باز کنید.
+2. **Wi-Fi:** لپ‌تاپ و گوشی به یک شبکه وصل باشند، PIN را وارد کنید؛ برنامه لپ‌تاپ را خودکار پیدا می‌کند.
+3. **Bluetooth:** ابتدا لپ‌تاپ را در تنظیمات بلوتوث گوشی جفت (Pair) کنید، سپس در برنامه انتخابش کنید.
+
+### ۳. لذت ببرید! 🎉
+ترکپد، کیبورد، کنترل یوتیوب/مدیا و دسته بازی Xbox.
+
+---
+
+## ✨ امکانات / Features
+
+- 🖱️ ترکپد و ماوس / Trackpad & mouse
+- ⌨️ کیبورد کامل / Full keyboard
+- ▶️ کنترل مدیا و یوتیوب / Media & YouTube control
+- 🎮 دسته بازی Xbox (درایور خودکار نصب می‌شود)
+- 📡 Wi-Fi و Bluetooth
+- 🔒 آفلاین، بدون اینترنت، بدون تبلیغات
+- 🌐 فارسی و انگلیسی
+
+---
+
+## 🔄 بروزرسانی / Updates
+
+APK یا Setup جدید را روی نسخهٔ قبلی نصب کنید (کلید امضا یکسان است، نیازی به حذف نیست).
+
+---
+
+## 🛠️ عیب‌یابی / Troubleshooting
+
+- **لاگ ویندوز:** `%APPDATA%\WingartCtrl.log` (خطاهای بلوتوث اینجا نوشته می‌شود و پنجرهٔ برنامه هم دلیل را نشان می‌دهد).
+- **گیر کردن دکمه‌ها:** دکمهٔ Refresh (نوار بالا / صفحه بازی) همهٔ کلیدها و دکمه‌های دسته را روی PC آزاد می‌کند.
+- **گوشی لپ‌تاپ را پیدا نمی‌کند:** مطمئن شوید هر دو به یک Wi-Fi وصل‌اند و فایروال ویندوز برنامه را مسدود نکرده است.
+
+---
+
+## 💻 کد برنامه / Source Code
+
+کد کامل پروژه در همین صفحه قابل مشاهده است:
+
+- 📱 اپ اندروید: Kotlin
+- 💻 برنامهٔ ویندوز: Python
+- 📦 نصب‌کننده: Inno Setup / PowerShell / Batch
+
+گزارش باگ و پیشنهاد (Issues) خوشحالمان می‌کند ❤️
+
+---
+
+<p align="center">Made with ❤️ by <a href="https://github.com/mahdi-eba">Mahdi EBA</a> • Wingart Studio</p>
