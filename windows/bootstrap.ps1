@@ -1,4 +1,4 @@
-# Builds installers for 64-bit AND 32-bit Windows. Downloads its own private Python 3.12 + Inno Setup (nothing to pre-install).
+# Builds ONE installer that contains both 64-bit and 32-bit Windows builds. Downloads its own private Python 3.12 + Inno Setup (nothing to pre-install).
 $ErrorActionPreference = "Stop"
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $root = $PSScriptRoot; Set-Location $root
@@ -18,8 +18,8 @@ foreach ($a in @(@{n = "x64"; f = "python-$ver-amd64.exe" }, @{n = "x86"; f = "p
   }
   & "$dir\python.exe" "$root\build.py" --build-only --arch $a.n
   if ($LASTEXITCODE -ne 0) { throw "Build failed for $($a.n)" }
-  & "$inno\ISCC.exe" "/DArch=$($a.n)" "$root\installer.iss"
-  if ($LASTEXITCODE -ne 0) { throw "Installer failed for $($a.n)" }
 }
-Write-Host "`nDONE - installers are in the Output folder." -ForegroundColor Yellow
+& "$inno\ISCC.exe" "$root\installer.iss"
+if ($LASTEXITCODE -ne 0) { throw "Installer failed" }
+Write-Host "`nDONE - WingartCtrl-Setup.exe (32 + 64 bit) is in the Output folder." -ForegroundColor Yellow
 explorer (Join-Path $root "Output")

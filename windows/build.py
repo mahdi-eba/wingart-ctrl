@@ -12,7 +12,23 @@ def run(cmd, optional=False):
     if not ok and not optional: raise SystemExit("FAILED: " + " ".join(cmd))
     return ok
 def pip(*pkgs, optional=False): return run([sys.executable, "-m", "pip", "install", "--upgrade", *pkgs], optional)
-def spec(m): return importlib.util.find_spec(m)
+def spec(m):
+    try: return importlib.util.find_spec(m)
+    except Exception: return None
+
+HIDDEN = ["winrt.windows.devices.bluetooth.rfcomm", "winrt.windows.devices.bluetooth", "winrt.windows.networking.sockets", "winrt.windows.storage.streams",
+          "winrt.windows.foundation", "winrt.windows.foundation.collections", "winrt.windows.devices.enumeration", "winrt.windows.networking", "winrt.windows.storage"]
+
+def selftest(exe, tag):
+    """Runs the freshly built exe in a headless mode that only checks the Bluetooth/gamepad libraries really got bundled."""
+    out = os.path.join(tempfile.gettempdir(), f"wc_selftest_{tag}.txt")
+    try: os.remove(out)
+    except OSError: pass
+    try: subprocess.run([exe, "--selftest", out], timeout=240)
+    except Exception as e: print("SELFTEST could not run:", e); return None
+    try: txt = open(out, encoding="utf-8").read()
+    except OSError: print("SELFTEST produced no output"); return None
+    print(f"\nSELFTEST {tag}:\n{txt}\n"); return txt
 
 def main():
     print("Python", sys.version.split()[0], ARCH)
@@ -22,15 +38,24 @@ def main():
     pip("vgamepad", optional=True)
     pip("winrt-runtime", "winrt-Windows.Foundation", "winrt-Windows.Foundation.Collections", "winrt-Windows.Storage.Streams",
         "winrt-Windows.Networking.Sockets", "winrt-Windows.Devices.Bluetooth", "winrt-Windows.Devices.Bluetooth.Rfcomm", optional=True)
+    for extra in ("winrt-Windows.Networking", "winrt-Windows.Devices.Enumeration", "winrt-Windows.Storage"): pip(extra, optional=True)
     cmd = [sys.executable, "-m", "PyInstaller", "--noconsole", "--onefile", "--clean", "--noconfirm", "--name", "WingartCtrl",
            "--distpath", f"dist_{ARCH}", "--workpath", f"build_{ARCH}", "--icon", "wingart.ico", "--add-data", "wingart.ico;."]
     if spec("vgamepad"): cmd += ["--collect-all", "vgamepad"]
     else: print("NOTE: vgamepad missing -> Game tab disabled")
-    if spec("winrt"): cmd += ["--collect-submodules", "winrt"]
+    if spec("winrt"):
+        cmd += ["--collect-submodules", "winrt"]
+        for m in HIDDEN:
+            if spec(m): cmd += ["--hidden-import", m]
     else: print("NOTE: winrt missing -> Bluetooth disabled (Wi-Fi still works)")
     run(cmd + ["wingart_ctrl.py"])
     built = os.path.join(HERE, f"dist_{ARCH}", "WingartCtrl.exe")
     if not os.path.exists(built): raise SystemExit(f"{built} was not created")
+    txt = selftest(built, ARCH)
+    if txt and "FAIL winrt" in txt and spec("winrt"):
+        print("Bluetooth libraries missing from the exe -> rebuilding with --collect-all winrt")
+        run(cmd + ["--collect-all", "winrt", "wingart_ctrl.py"], optional=True)
+        selftest(built, ARCH + "_retry")
     vg = spec("vgamepad"); msi = None
     if vg and vg.submodule_search_locations:
         msi = os.path.join(list(vg.submodule_search_locations)[0], "win", "vigem", "install", ARCH, f"ViGEmBusSetup_{ARCH}.msi")

@@ -8,3 +8,6 @@ winrt-Windows.Storage.Streams
 winrt-Windows.Networking.Sockets
 winrt-Windows.Devices.Bluetooth
 winrt-Windows.Devices.Bluetooth.Rfcomm
+winrt-Windows.Networking
+winrt-Windows.Devices.Enumeration
+winrt-Windows.Storage
